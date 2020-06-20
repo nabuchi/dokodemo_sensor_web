@@ -6,6 +6,9 @@
   "author": "nabuchi <nabnab.main+github@gmail.com>",
   "license": "MIT",
   "dependencies": {
+    "axios": "^0.19.2",
+    "dotenv-webpack": "^1.8.0",
+    "moment": "^2.27.0",
     "netlify-lambda": "^1.6.3",
     "next": "^9.4.4",
     "react": "^16.13.1",
@@ -13,8 +16,13 @@
   },
   "scripts": {
     "dev": "next",
-    "build": "next build",
-    "start": "next start"
+    "serve-lambda": "netlify-lambda serve src/lambda --config ./webpack.lambda.js",
+    "build-lambda": "netlify-lambda build src/lambda",
+    "next-build": "next build",
+    "build": "yarn build-lambda && yarn next-build",
+    "start": "next start",
+    "export": "next export",
+    "deploy": "yarn build && yarn export"
   },
   "devDependencies": {
     "@types/react": "^16.9.38",
