@@ -1,0 +1,14 @@
+{
+  "name": "dokodemo_sensor",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/nabuchi/dokodemo_sensor.git",
+  "author": "nabuchi <nabnab.main+github@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "netlify-lambda": "^1.6.3",
+    "next": "^9.4.4",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1"
+  }
+}
