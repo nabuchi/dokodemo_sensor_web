@@ -1,4 +1,4 @@
 [build]
-  publish = "dist"
-  command = "yarn build"
+  publish = "out"
+  command = "yarn export"
   functions = "dist/lambda"
