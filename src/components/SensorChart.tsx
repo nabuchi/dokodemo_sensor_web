@@ -33,6 +33,37 @@ const SensorChart: React.FunctionComponent = () => {
         text: 'Date'
       },
       tickInterval: 1 * 3600 * 1000,
+      dateTimeLabelFormats: {
+        day: '%m/%e',
+        hour: '%H:%M'
+      },
+      plotLines: [
+        {
+          value: moment().startOf('day').set({h: 12}),
+          width: 1,
+          dashStyle: 'dash'
+        },
+        {
+          value: moment().startOf('day'),
+          width: 2,
+          dashStyle: 'dash'
+        },
+        {
+          value: moment().add(-1, 'day').startOf('day').set({h: 12}),
+          width: 1,
+          dashStyle: 'dash'
+        },
+        {
+          value: moment().add(-1, 'day').startOf('day'),
+          width: 2,
+          dashStyle: 'dash'
+        },
+        {
+          value: moment().add(-2, 'day').startOf('day').set({h: 12}),
+          width: 2,
+          dashStyle: 'dash'
+        }
+      ],
     },
     series: [{
       name: "気圧",

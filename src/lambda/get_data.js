@@ -3,8 +3,8 @@ import moment from 'moment-timezone';
 process.env.NODE_ENV
 
 exports.handler = async (event, context) => {
-  const from = moment().add(-1, "months").format("YYYY-MM-DD HH:mm:ss")
-  const to = moment().format("YYYY-MM-DD HH:mm:ss")
+  const from = moment.utc().add(-2, "day").format("YYYY-MM-DD HH:mm:ss")
+  const to = moment.utc().format("YYYY-MM-DD HH:mm:ss")
   const token = process.env.DOKODEMO_API_TOKEN
   const res = await axios.get(`https://svcipp.planex.co.jp/api/get_data.php`, {
     params: {
