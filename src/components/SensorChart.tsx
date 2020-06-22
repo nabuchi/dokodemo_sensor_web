@@ -6,15 +6,16 @@ import moment from 'moment';
 
 
 const SensorChart: React.FunctionComponent = () => {
-  const [airPressures, setAirPressures] = useState(0)
+  const [airPressures, setAirPressures] = useState([])
+  const [temperatures, setTemperatures] = useState([])
+  const [humidities, setHumidities] = useState([])
 
   useEffect(
     () => {
       axios.get(`/.netlify/functions/get_data`).then((res) => {
-        setAirPressures(res.data.map((r) => {
-          const time = moment(r.time)
-          return [time.valueOf(), r.airPressure]
-        }))
+        setAirPressures(res.data.map(r => [moment(r.time).valueOf(), r.airPressure]))
+        setTemperatures(res.data.map(r => [moment(r.time).valueOf(), r.temperature]))
+        setHumidities(res.data.map(r => [moment(r.time).valueOf(), r.humidity]))
       })
     },
     []
@@ -25,7 +26,7 @@ const SensorChart: React.FunctionComponent = () => {
       useUTC: false,
     },
     title: {
-      text: '気圧'
+      text: '気象'
     },
     xAxis: {
       type: 'datetime',
@@ -39,7 +40,7 @@ const SensorChart: React.FunctionComponent = () => {
       },
       plotLines: [
         {
-          value: moment().startOf('day').set({h: 12}),
+          value: moment().startOf('day').set({ h: 12 }),
           width: 1,
           dashStyle: 'dash'
         },
@@ -49,7 +50,7 @@ const SensorChart: React.FunctionComponent = () => {
           dashStyle: 'dash'
         },
         {
-          value: moment().add(-1, 'day').startOf('day').set({h: 12}),
+          value: moment().add(-1, 'day').startOf('day').set({ h: 12 }),
           width: 1,
           dashStyle: 'dash'
         },
@@ -59,20 +60,55 @@ const SensorChart: React.FunctionComponent = () => {
           dashStyle: 'dash'
         },
         {
-          value: moment().add(-2, 'day').startOf('day').set({h: 12}),
+          value: moment().add(-2, 'day').startOf('day').set({ h: 12 }),
           width: 2,
           dashStyle: 'dash'
         }
       ],
     },
-    series: [{
-      name: "気圧",
-      data: airPressures,
-      tooltip: {
-        valueDecimals: 1,
-        pointFormat: '{series.name}: {point.y:,.2f} hPa'
+    yAxis: [
+      {
+        title: {
+          text: '気圧'
+        },
+        opposite: false
+      },
+      {
+        title: {
+          text: '湿度 or 湿度'
+        },
+        opposite: true
       }
-    }]
+    ],
+    series: [
+      {
+        name: "気圧",
+        data: airPressures,
+        tooltip: {
+          valueDecimals: 1,
+          pointFormat: '{series.name}: {point.y:,.2f} hPa'
+        },
+        yAxis: 0
+      },
+      {
+        name: "温度",
+        data: temperatures,
+        tooltip: {
+          valueDecimals: 1,
+          pointFormat: '{series.name}: {point.y:,.2f} ℃'
+        },
+        yAxis: 1
+      },
+      {
+        name: "湿度",
+        data: humidities,
+        tooltip: {
+          valueDecimals: 1,
+          pointFormat: '{series.name}: {point.y:,.2f} %'
+        },
+        yAxis: 1
+      }
+    ]
   }
 
   return (
