@@ -71,13 +71,19 @@ const SensorChart: React.FunctionComponent = () => {
         title: {
           text: '気圧'
         },
-        opposite: false
+        opposite: true
       },
       {
         title: {
-          text: '湿度 or 湿度'
+          text: '温度'
         },
         opposite: true
+      },
+      {
+        title: {
+          text: '湿度'
+        },
+        opposite: false
       }
     ],
     series: [
@@ -86,7 +92,7 @@ const SensorChart: React.FunctionComponent = () => {
         data: airPressures,
         tooltip: {
           valueDecimals: 1,
-          pointFormat: '{series.name}: {point.y:,.2f} hPa'
+          pointFormat: '{series.name}: {point.y:,.1f} hPa'
         },
         yAxis: 0
       },
@@ -95,7 +101,7 @@ const SensorChart: React.FunctionComponent = () => {
         data: temperatures,
         tooltip: {
           valueDecimals: 1,
-          pointFormat: '{series.name}: {point.y:,.2f} ℃'
+          pointFormat: '{series.name}: {point.y:,.1f} ℃'
         },
         yAxis: 1
       },
@@ -104,9 +110,9 @@ const SensorChart: React.FunctionComponent = () => {
         data: humidities,
         tooltip: {
           valueDecimals: 1,
-          pointFormat: '{series.name}: {point.y:,.2f} %'
+          pointFormat: '{series.name}: {point.y:,.1f} %'
         },
-        yAxis: 1
+        yAxis: 2
       }
     ]
   }
