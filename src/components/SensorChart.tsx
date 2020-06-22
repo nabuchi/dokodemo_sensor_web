@@ -86,9 +86,26 @@ const SensorChart: React.FunctionComponent = () => {
         opposite: false
       }
     ],
+    rangeSelector: {
+      enabled: false
+    },
+    legend: {
+      enabled: true,
+      verticalAlign: 'top'
+    },
+    credits: {
+      enabled: false
+    },
+    navigator: {
+      enabled: false
+    },
+    scrollbar: {
+      enabled: false
+    },
     series: [
       {
         name: "気圧",
+        color: '#8bbc21',
         data: airPressures,
         tooltip: {
           valueDecimals: 1,
@@ -99,6 +116,7 @@ const SensorChart: React.FunctionComponent = () => {
       {
         name: "温度",
         data: temperatures,
+        color: '#c42525',
         tooltip: {
           valueDecimals: 1,
           pointFormat: '{series.name}: {point.y:,.1f} ℃'
@@ -107,6 +125,7 @@ const SensorChart: React.FunctionComponent = () => {
       },
       {
         name: "湿度",
+        color: "#1aadce",
         data: humidities,
         tooltip: {
           valueDecimals: 1,
