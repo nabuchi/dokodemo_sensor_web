@@ -1,13 +1,11 @@
 import axios from 'axios';
-import moment from 'moment';
+import moment from 'moment-timezone';
 process.env.NODE_ENV
 
 exports.handler = async (event, context) => {
   const from = moment().add(-1, "months").format("YYYY-MM-DD HH:mm:ss")
   const to = moment().format("YYYY-MM-DD HH:mm:ss")
   const token = process.env.DOKODEMO_API_TOKEN
-  console.log(from)
-  console.log(to)
   const res = await axios.get(`https://svcipp.planex.co.jp/api/get_data.php`, {
     params: {
       type: "WS-USB01-THP",
@@ -18,11 +16,12 @@ exports.handler = async (event, context) => {
     }
   })
   const records = res.data.map(r => {
+    const time = moment.utc(r[0], "YYYY-MM-DD HH:mm:ss")
     return {
-      time: r[0],
-      temperature: r[1],
-      humidity: r[2],
-      airPressure: r[3]
+      time: time.tz('Asia/Tokyo').format(),
+      temperature: Number(r[1]),
+      humidity: Number(r[2]),
+      airPressure: Number(r[3])
     }
   })
 
