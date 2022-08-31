@@ -11,7 +11,7 @@
     "highcharts": "^8.1.2",
     "highcharts-react-official": "^3.0.0",
     "moment": "^2.27.0",
-    "moment-timezone": "^0.5.31",
+    "moment-timezone": "^0.5.35",
     "netlify-lambda": "^1.6.3",
     "next": "^9.4.4",
     "react": "^16.13.1",
